@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Loader2, ArrowLeft, Download, Database, FileText, CheckCircle, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { generateData as apiGenerateData } from '@/lib/api';
 
 
 
@@ -69,23 +70,12 @@ const DataGenerator = ({ schema, onBack, formData, onFormUpdate, generatedData, 
     setNotification(null);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/generate-data`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          schema: schema.schema,
-          count: formData.dataRowCount,
-          model_type: formData.dataModelType
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate data');
-      }
-
-      const data: DataResponse = await response.json();
+      const data = await apiGenerateData(
+        schema.schema,
+        formData.dataRowCount,
+        formData.dataModelType
+      );
+      
       onDataUpdate(data);
       setNotification({
         type: 'success',
