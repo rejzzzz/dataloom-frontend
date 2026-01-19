@@ -316,5 +316,6 @@ See [`backend/api_doc.md`](api_doc.md) for full details.
 
 ## 📄 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the Apache-2.0 license License. See [LICENSE](LICENSE) for details.
+
 
